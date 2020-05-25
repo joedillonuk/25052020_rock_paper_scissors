@@ -2,7 +2,7 @@ require('sinatra')
 require('sinatra/contrib/all')
 require('pry-byebug')
 
-require_relative('./models/calculator')
+require_relative('./models/game.rb')
 also_reload('./models/*')
 
 get '/' do
@@ -12,6 +12,28 @@ end
 get '/about_us' do
   erb(:about_us)
 end
+
+
+get '/play' do
+  erb(:play)
+end
+
+get '/play/:choice1/:choice2' do
+@result = Game.play(params[:choice1], params[:choice2])
+erb(:result)
+end
+
+post '/result' do
+choice1 = params[:choice1]
+choice2 = params[:choice2]
+@result = Game.play(choice1, choice2)
+erb(:result)
+end
+
+
+# get '/play/:choice1/choice2' do
+#   @gameresult =
+# end
 
 
 get '/add/:num1/:num2' do
